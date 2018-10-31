@@ -1352,16 +1352,23 @@ define('package.json!npm', [
         }
     ], { 'npmParentMap': {} }));
 });
-/*babel*/
-define('babel', [], function(){ return {}; });
 /*steal-conditional-culling-imports@1.0.0#index*/
-define('steal-conditional-culling-imports@1.0.0#index', ['~/lib/file'], function (_file) {
+define('steal-conditional-culling-imports@1.0.0#index', [
+    'steal-conditional-culling-imports@1.0.0#lib/file',
+    '~/lib/file-#{~/lib/a-or-b}'
+], function (_file) {
     'use strict';
     var _file2 = _interopRequireDefault(_file);
     function _interopRequireDefault(obj) {
         return obj && obj.__esModule ? obj : { default: obj };
     }
     console.log(_file2.default);
+});
+/*always-false*/
+define('always-false', ['exports'], function (exports) {
+    'use strict';
+    Object.defineProperty(exports, '__esModule', { value: true });
+    exports.default = false;
 });
 /*steal-conditional-culling-imports@1.0.0#lib/a-or-b*/
 define('steal-conditional-culling-imports@1.0.0#lib/a-or-b', ['exports'], function (exports) {
@@ -1370,18 +1377,10 @@ define('steal-conditional-culling-imports@1.0.0#lib/a-or-b', ['exports'], functi
     var aOrB = System.isPlatform('window') ? 'a' : 'b';
     exports.default = aOrB;
 });
-/*always-false*/
-define('always-false', ['exports'], function (exports) {
-    'use strict';
-    Object.defineProperty(exports, '__esModule', { value: true });
-    exports.default = false;
-});
 /*steal-conditional-culling-imports@1.0.0#lib/file*/
 define('steal-conditional-culling-imports@1.0.0#lib/file', [
     'exports',
-    '~/lib/file-#{~/lib/a-or-b}',
-    '~/lib/file-a#?always-false',
-    '~/lib/file-b#?always-false'
+    '~/lib/file-#{~/lib/a-or-b}'
 ], function (exports, _aOrB) {
     'use strict';
     Object.defineProperty(exports, '__esModule', { value: true });

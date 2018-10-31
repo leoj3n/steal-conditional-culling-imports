@@ -4,6 +4,5 @@ const buildPromise = stealTools.build(
   {},
   {
     minify: false,
-    treeShaking: false,
   }
 );
