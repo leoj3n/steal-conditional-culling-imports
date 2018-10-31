@@ -1,5 +1,5 @@
 /*[system-bundles-config]*/
-System.bundles = {};
+System.bundles = {"bundles/steal-conditional-culling-imports/lib/file-a":["steal-conditional-culling-imports@1.0.0#lib/file-a"],"bundles/steal-conditional-culling-imports/lib/file-b":["steal-conditional-culling-imports@1.0.0#lib/file-b"]};
 /*npm-utils*/
 define('npm-utils', function (require, exports, module) {
     (function (global, require, exports, module) {
@@ -1155,7 +1155,7 @@ define('package.json!npm', [
                 'configDependencies': ['./node_modules/steal-conditional/conditional'],
                 'npmAlgorithm': 'flat'
             },
-            'resolutions': {}
+            'resolutions': { 'steal-conditional-culling-imports': '1.0.0' }
         },
         {
             'name': 'steal',
@@ -1232,10 +1232,11 @@ define('package.json!npm', [
             'resolutions': {}
         },
         {
-            'name': 'constants-browserify',
-            'version': '1.0.0',
-            'fileUrl': './node_modules/constants-browserify/package.json',
-            'main': 'constants.json',
+            'name': 'buffer',
+            'version': '5.0.8',
+            'fileUrl': './node_modules/buffer/package.json',
+            'main': 'index.js',
+            'jspm': {},
             'resolutions': {}
         },
         {
@@ -1246,11 +1247,10 @@ define('package.json!npm', [
             'resolutions': {}
         },
         {
-            'name': 'buffer',
-            'version': '5.0.8',
-            'fileUrl': './node_modules/buffer/package.json',
-            'main': 'index.js',
-            'jspm': {},
+            'name': 'constants-browserify',
+            'version': '1.0.0',
+            'fileUrl': './node_modules/constants-browserify/package.json',
+            'main': 'constants.json',
             'resolutions': {}
         },
         {
@@ -1269,6 +1269,13 @@ define('package.json!npm', [
             'resolutions': {}
         },
         {
+            'name': 'events',
+            'version': '1.1.1',
+            'fileUrl': './node_modules/events/package.json',
+            'main': './events.js',
+            'resolutions': {}
+        },
+        {
             'name': 'http-browserify',
             'version': '1.7.0',
             'fileUrl': './node_modules/http-browserify/package.json',
@@ -1277,10 +1284,10 @@ define('package.json!npm', [
             'resolutions': {}
         },
         {
-            'name': 'events',
-            'version': '1.1.1',
-            'fileUrl': './node_modules/events/package.json',
-            'main': './events.js',
+            'name': 'https-browserify',
+            'version': '1.0.0',
+            'fileUrl': './node_modules/https-browserify/package.json',
+            'main': 'index.js',
             'resolutions': {}
         },
         {
@@ -1300,18 +1307,26 @@ define('package.json!npm', [
             'resolutions': {}
         },
         {
-            'name': 'https-browserify',
-            'version': '1.0.0',
-            'fileUrl': './node_modules/https-browserify/package.json',
-            'main': 'index.js',
-            'resolutions': {}
-        },
-        {
             'name': 'process',
             'version': '0.11.10',
             'fileUrl': './node_modules/process/package.json',
             'main': './index.js',
             'browser': './browser.js',
+            'resolutions': {}
+        },
+        {
+            'name': 'punycode',
+            'version': '2.0.1',
+            'fileUrl': './node_modules/punycode/package.json',
+            'main': 'punycode.js',
+            'jspm': {},
+            'resolutions': {}
+        },
+        {
+            'name': 'string_decoder',
+            'version': '1.0.3',
+            'fileUrl': './node_modules/string_decoder/package.json',
+            'main': 'lib/string_decoder.js',
             'resolutions': {}
         },
         {
@@ -1329,28 +1344,13 @@ define('package.json!npm', [
             'resolutions': {}
         },
         {
-            'name': 'string_decoder',
-            'version': '1.0.3',
-            'fileUrl': './node_modules/string_decoder/package.json',
-            'main': 'lib/string_decoder.js',
-            'resolutions': {}
-        },
-        {
-            'name': 'punycode',
-            'version': '2.0.1',
-            'fileUrl': './node_modules/punycode/package.json',
-            'main': 'punycode.js',
-            'jspm': {},
-            'resolutions': {}
-        },
-        {
             'name': 'zlib-browserify',
             'version': '0.0.3',
             'fileUrl': './node_modules/zlib-browserify/package.json',
             'main': 'index.js',
             'resolutions': {}
         }
-    ], {}));
+    ], { 'npmParentMap': {} }));
 });
 /*babel*/
 define('babel', [], function(){ return {}; });
@@ -1370,10 +1370,18 @@ define('steal-conditional-culling-imports@1.0.0#lib/a-or-b', ['exports'], functi
     var aOrB = System.isPlatform('window') ? 'a' : 'b';
     exports.default = aOrB;
 });
+/*always-false*/
+define('always-false', ['exports'], function (exports) {
+    'use strict';
+    Object.defineProperty(exports, '__esModule', { value: true });
+    exports.default = false;
+});
 /*steal-conditional-culling-imports@1.0.0#lib/file*/
 define('steal-conditional-culling-imports@1.0.0#lib/file', [
     'exports',
-    '~/lib/file-#{~/lib/a-or-b}'
+    '~/lib/file-#{~/lib/a-or-b}',
+    '~/lib/file-a#?always-false',
+    '~/lib/file-b#?always-false'
 ], function (exports, _aOrB) {
     'use strict';
     Object.defineProperty(exports, '__esModule', { value: true });
